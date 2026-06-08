@@ -19,6 +19,10 @@ ml_service/.env
 ml_service/venv/
 ml_service/.venv/
 
+# Large model files (>50MB - transfer manually via scp)
+ml_service/models/easy_ocr/craft_mlt_25k.pth
+ml_service/models/car_damage/car_damage_model.pth
+
 # ===========================
 # Database / Docker volumes
 # ===========================
