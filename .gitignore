@@ -1,0 +1,41 @@
+# ===========================
+# Laravel
+# ===========================
+laravel_app/.env
+laravel_app/vendor/
+laravel_app/node_modules/
+laravel_app/storage/app/public/predictions/
+laravel_app/storage/logs/
+laravel_app/bootstrap/cache/
+laravel_app/.phpunit.result.cache
+
+# ===========================
+# ML Service
+# ===========================
+ml_service/__pycache__/
+ml_service/**/__pycache__/
+ml_service/*.pyc
+ml_service/.env
+ml_service/venv/
+ml_service/.venv/
+
+# ===========================
+# Database / Docker volumes
+# ===========================
+mysql_data/
+
+# ===========================
+# OS / IDE
+# ===========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===========================
+# Environment files (root)
+# ===========================
+.env
+*.env.local

@@ -1,0 +1,15 @@
+fastapi==0.115.5
+uvicorn[standard]==0.32.0
+python-multipart==0.0.9
+Pillow==11.0.0
+numpy==1.26.4
+
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch==2.5.1+cu121
+torchvision==0.20.1+cu121
+
+ultralytics==8.4.12
+opencv-python-headless==4.10.0.84
+segmentation-models-pytorch==0.3.4
+albumentations==1.4.24
+easyocr==1.7.1
