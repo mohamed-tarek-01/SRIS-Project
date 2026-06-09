@@ -26,14 +26,42 @@ class PaymentController extends Controller
 
         $points = $request->input('granted_points', $payment->requested_points);
 
-        $payment->user->increment('balance', $points);
+        $user = $payment->user;
         
+        // Add points to user's balance
+        $user->increment('balance', $points);
+        
+        // Process pending fines
+        $fines = \App\Models\Fine::where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        $paidFinesAmount = 0;
+        foreach ($fines as $fine) {
+            if ($user->balance >= $fine->amount) {
+                $user->decrement('balance', $fine->amount);
+                $fine->update(['status' => 'paid']);
+                $paidFinesAmount += $fine->amount;
+            }
+        }
+
+        $adminNotes = 'Approved ' . $points . ' points.';
+        if ($paidFinesAmount > 0) {
+            $adminNotes .= ' Automatically deducted ' . $paidFinesAmount . ' points for pending fines.';
+        }
+
         $payment->update([
             'status' => 'approved',
-            'admin_notes' => 'Approved ' . $points . ' points.',
+            'admin_notes' => $adminNotes,
         ]);
 
-        return back()->with('success', 'Payment approved and points added.');
+        $successMessage = 'Payment approved and points added.';
+        if ($paidFinesAmount > 0) {
+            $successMessage .= ' Also, ' . $paidFinesAmount . ' points were deducted to pay off pending fines.';
+        }
+
+        return back()->with('success', $successMessage);
     }
 
     public function reject(Request $request, PaymentReceipt $payment)
