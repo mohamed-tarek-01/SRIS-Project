@@ -15,7 +15,12 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        if (request()->header('X-Forwarded-Proto') === 'https' || str_contains(request()->getHost(), 'ngrok')) {
+        if (
+            request()->header('X-Forwarded-Proto') === 'https' ||
+            str_contains(request()->getHost(), 'ngrok') ||
+            str_contains(request()->getHost(), 'nip.io') ||
+            app()->environment('production')
+        ) {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
 

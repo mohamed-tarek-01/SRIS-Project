@@ -21,7 +21,7 @@
                 $endpoint = url('/api/ml/cracks/detect');
             @endphp
 
-            @include('components.upload-box', ['endpoint' => $endpoint])
+            @include('components.upload-box', ['endpoint' => $endpoint, 'requireLocation' => true])
         </div>
     </div>
 @endsection
