@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="max-w-4xl mx-auto space-y-12 pb-20">
     <!-- Header Section -->
     <div class="space-y-4">
@@ -26,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/[0.03]">
-                        @php
+                        <?php
                             $refFines = [
                                 ['v' => 'قيادة سيارة بدون لوحات معدنية', 'p' => '3000 - 5000'],
                                 ['v' => 'السير عكس الاتجاه', 'p' => '1000 - 3000'],
@@ -40,13 +38,13 @@
                                 ['v' => 'عدم استخدام حزام الأمان', 'p' => '100 - 300'],
                                 ['v' => 'عدم وجود رصيد كافي للعبور (بوابات التول)', 'p' => '1000'],
                             ];
-                        @endphp
-                        @foreach($refFines as $rfine)
+                        ?>
+                        <?php $__currentLoopData = $refFines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rfine): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr class="text-slate-400 hover:bg-white/[0.01] transition-colors text-xs">
-                                <td class="px-8 py-4 font-bold" dir="rtl">{{ $rfine['v'] }}</td>
-                                <td class="px-8 py-4 font-black text-amber-500/80">{{ $rfine['p'] }}</td>
+                                <td class="px-8 py-4 font-bold" dir="rtl"><?php echo e($rfine['v']); ?></td>
+                                <td class="px-8 py-4 font-black text-amber-500/80"><?php echo e($rfine['p']); ?></td>
                             </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
@@ -60,7 +58,7 @@
         </h2>
         
         <div class="glass-panel rounded-[2.5rem] border border-white/5 overflow-hidden">
-            @if($userFines->count() > 0)
+            <?php if($userFines->count() > 0): ?>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
@@ -73,30 +71,30 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-white/[0.03]">
-                            @foreach($userFines as $fine)
+                            <?php $__currentLoopData = $userFines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fine): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr class="text-slate-300 hover:bg-white/[0.02] transition-colors">
                                     <td class="px-8 py-5">
-                                        <div class="font-bold text-white">{{ $fine->created_at->format('M d, Y') }}</div>
-                                        <div class="text-[10px] text-slate-500 uppercase font-black">{{ $fine->station ? $fine->station->name : 'Manual' }}</div>
+                                        <div class="font-bold text-white"><?php echo e($fine->created_at->format('M d, Y')); ?></div>
+                                        <div class="text-[10px] text-slate-500 uppercase font-black"><?php echo e($fine->station ? $fine->station->name : 'Manual'); ?></div>
                                     </td>
-                                    <td class="px-8 py-5 font-mono text-sm tracking-widest text-primary-400">{{ $fine->plate_number }}</td>
-                                    <td class="px-8 py-5 text-xs">{{ $fine->reason }}</td>
+                                    <td class="px-8 py-5 font-mono text-sm tracking-widest text-primary-400"><?php echo e($fine->plate_number); ?></td>
+                                    <td class="px-8 py-5 text-xs"><?php echo e($fine->reason); ?></td>
                                     <td class="px-8 py-5">
-                                        <span class="font-black text-rose-400">{{ number_format($fine->amount, 2) }} EGP</span>
+                                        <span class="font-black text-rose-400"><?php echo e(number_format($fine->amount, 2)); ?> EGP</span>
                                     </td>
                                     <td class="px-8 py-5">
-                                        @if($fine->status === 'pending')
+                                        <?php if($fine->status === 'pending'): ?>
                                             <span class="px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[9px] font-black uppercase tracking-widest">Unpaid</span>
-                                        @else
+                                        <?php else: ?>
                                             <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] font-black uppercase tracking-widest">Paid</span>
-                                        @endif
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
                 </div>
-            @else
+            <?php else: ?>
                 <div class="p-16 text-center">
                     <div class="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/20">
                         <i data-lucide="shield-check" class="w-10 h-10 text-emerald-400"></i>
@@ -104,7 +102,7 @@
                     <h3 class="text-xl font-black text-white mb-2 uppercase">No Violations Found</h3>
                     <p class="text-slate-400 text-sm max-w-xs mx-auto">Great job! Your record is clean. Keep up the safe driving.</p>
                 </div>
-            @endif
+            <?php endif; ?>
         </div>
     </div>
 
@@ -116,4 +114,6 @@
         </p>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /var/www/resources/views/user/utilities/fines.blade.php ENDPATH**/ ?>
