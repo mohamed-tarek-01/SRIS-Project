@@ -1,5 +1,6 @@
 # Smart Road Integrated System (SRIS) 🚦🤖
 
+![SRIS Cover](laravel_app/public/images/logo.png) <!-- Update with actual logo/cover path if available -->
 **SRIS (Smart Road Integrated System)** is an advanced, AI-powered platform designed to transform reactive road management into a proactive, intelligent, and real-time ecosystem. By unifying multiple Deep Learning models with a robust web application, SRIS automates traffic monitoring, hazard detection, automated toll collection, and road maintenance reporting.
 
 🌐 **Live Deployment (Google Cloud):** [https://sris-project.duckdns.org](https://sris-project.duckdns.org)
